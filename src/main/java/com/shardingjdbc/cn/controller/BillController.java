@@ -34,7 +34,7 @@ public class BillController {
             Date date2 = sdf.parse(end);
             QueryWrapper<Bill> queryWrapper = new QueryWrapper<>();
             queryWrapper.ge("create_time", date)
-                    .and(qw -> qw.le("create_time", date2)).last("limit 1,10");
+                    .and(qw -> qw.le("create_time", date2)).last("limit 10");
             List<Bill> billPage = billService.list(queryWrapper);
             System.out.println(billPage.size());
             billPage.forEach(System.out::println);
