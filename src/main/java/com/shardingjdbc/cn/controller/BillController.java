@@ -49,14 +49,13 @@ public class BillController {
     @RequestMapping("/save")
     public String save(@RequestParam("userid") int userId, @RequestParam("addressId") long addressId,
                        @RequestParam("status") String status
-            , @RequestParam("orderId") long orderId, @RequestParam("createTime") String createTime) throws ParseException {
+            , @RequestParam("createTime") String createTime) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String ret = "0";
         Bill bill = new Bill();
         bill.setUserId(userId);
         bill.setAddressId(addressId);
         bill.setStatus(status);
-        bill.setOrderId(orderId);
         bill.setCreateTime(dateFormat.parse(createTime));
         boolean isOk = billService.save(bill);
         if (isOk) {
