@@ -45,26 +45,22 @@ public class BillController {
         return null;
     }
 
-    //http://localhost:8080/bill/save?userid=999&addressId=999&status=M&date=2021-03-07%2000:00:00
+    //http://localhost:8080/bill/save?userid=999&addressId=999&status=M&orderId=999
     @RequestMapping("/save")
     public String save(@RequestParam("userid") int userId, @RequestParam("addressId") long addressId,
                        @RequestParam("status") String status
-            , @RequestParam("date") String strDate) {
+            , @RequestParam("orderId") long orderId, @RequestParam("createTime") String createTime) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String ret = "0";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date date = sdf.parse(strDate);
-            Bill bill = new Bill();
-            bill.setUserId(userId);
-            bill.setAddressId(addressId);
-            bill.setStatus(status);
-            bill.setCreateTime(date);
-            boolean isOk = billService.save(bill);
-            if (isOk) {
-                ret = "1";
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Bill bill = new Bill();
+        bill.setUserId(userId);
+        bill.setAddressId(addressId);
+        bill.setStatus(status);
+        bill.setOrderId(orderId);
+        bill.setCreateTime(dateFormat.parse(createTime));
+        boolean isOk = billService.save(bill);
+        if (isOk) {
+            ret = "1";
         }
         return ret;
     }

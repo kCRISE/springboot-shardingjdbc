@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.12.RELEASE</version>
+        <version>2.1.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.shardingjdbc</groupId>
@@ -16,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
-        <sharding-sphere.version>4.0.0-RC2</sharding-sphere.version>
+        <sharding-sphere.version>4.0.0-RC1</sharding-sphere.version>
     </properties>
     <dependencies>
         <dependency>
@@ -46,6 +46,12 @@
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+        <!-- Sharding-JDBC核心依赖 -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
             <version>${sharding-sphere.version}</version>
         </dependency>
         <dependency>

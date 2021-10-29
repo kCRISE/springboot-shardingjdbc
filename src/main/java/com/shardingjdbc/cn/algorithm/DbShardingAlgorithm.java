@@ -39,7 +39,7 @@ public class DbShardingAlgorithm implements PreciseShardingAlgorithm<Long> {
         //分片索引计算(db0和db1)
         long dbIndex = orderId & 1;
         for (String index : availableTargetNames) {
-            if (index.equals("ds" + dbIndex)) {
+            if (index.equals("db" + dbIndex)) {
                 return index;
             }
         }
