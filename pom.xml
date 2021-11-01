@@ -59,6 +59,12 @@
             <artifactId>sharding-jdbc-spring-namespace</artifactId>
             <version>${sharding-sphere.version}</version>
         </dependency>
+        <!-- 事务依赖 -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-transaction-xa-spi</artifactId>
+            <version>5.0.0-alpha</version>
+        </dependency>
         <!--连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>

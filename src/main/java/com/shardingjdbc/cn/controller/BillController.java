@@ -3,6 +3,8 @@ package com.shardingjdbc.cn.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.shardingjdbc.cn.entity.Bill;
 import com.shardingjdbc.cn.service.BillService;
+import com.shardingjdbc.cn.service.TransActionBillService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 测试Controller
@@ -24,6 +27,8 @@ import java.util.List;
 public class BillController {
     @Resource
     private BillService billService;
+    @Resource
+    private TransActionBillService transActionBillService;
 
     //http://localhost:8080/bill/query?start=2021-02-07 00:00:00&end=2021-03-07 00:00:00
     @RequestMapping("/query")
@@ -63,4 +68,10 @@ public class BillController {
         }
         return ret;
     }
+
+    @RequestMapping("/saveBillList")
+    public void saveBillList(@RequestBody Map<String, List<Bill>> billMap) {
+        transActionBillService.saveBill(billMap.get("billList"));
+    }
+
 }
