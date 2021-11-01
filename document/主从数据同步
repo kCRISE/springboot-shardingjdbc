@@ -1,0 +1,40 @@
+## shardingjdbc 主从数据同步设置
+1、开启两个MySQL服务，如A,B两台数据库服务（A向B提供同步服务，即B中的数据来自A）
+
+2、A（master）服务配置
+    打开A机器的mysql安装目录下的my.ini文件，在文件最后添加：
+
+    server-id=1  
+    log-bin=c:\mysqlback #启动同步事件的日志记录文件  
+    binlog-do-db=db0 #提供数据同步服务的数据库(db0) 
+
+3、B（slave）服务配置
+
+   机器A和B的数据库结构必须一致，否则无法构成同步;
+   
+   打开B机器的mysql安装目录下的my.ini文件，在文件最后添加：
+   
+   ```$xslt
+    server-id=2  
+    master-host=10.10.151.166 #主机A的地址  
+    master-user=ym #主机A提供给B的用户，该用户中需要包括数据库db0的权限  
+    master-password=ym #访问密码  
+    master-port=3306 #端口，A主机的MYSQL端口  
+    master-connect-retry=60 #重试间隔60秒，当主从服务器连接意外断开时数据库每隔60秒进行一个重新连接  
+    replicate-do-db=db0 #同步的数据库   
+    
+```
+完成以上配置之后，在机器A的mysql控制台中输入：
+
+    GRANT REPLICATION SLAVE,RELOAD,SUPER ON *.* TO ym@10.10.151.156 IDENTIFIED BY  'ym' ; 
+    
+    replication slave: 拥有此权限可以查看从服务器，从主服务器读取二进制日志。
+    
+ 4、重启MySQL服务
+ 
+ 参考文章：
+    
+   1、https://www.iteye.com/blog/lizhao6210-126-com-1716485
+    
+   2、https://blog.csdn.net/zdagf/article/details/80441524
+
